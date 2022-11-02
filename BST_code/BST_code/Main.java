@@ -19,7 +19,10 @@ class Main {
         st.printTree();
         System.out.println(st.contains(15));
         // System.out.println(st.height()); 
-        System.out.println(st.max()); 
+        // st.max();
+        System.out.println(st.max());
+        System.out.println(st.min()); 
+        System.out.println(st.size());
         // BSTInt st2 = new BSTInt();
         // try {
         //     file = new File("input2.txt");

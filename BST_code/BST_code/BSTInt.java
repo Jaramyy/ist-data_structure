@@ -91,55 +91,121 @@ public class BSTInt {
         return 1 + Math.max( height(root.getLeft()) , height(root.getLeft()) );
        
     }
-
-
     // this method returns the largest integer in this BSTInt
     public int max() {
         // fill me in
         //return 0;
         return max(root);
     }
-    private static int max(TreeCell<Integer> root)
+    private int max(TreeCell<Integer> root)
     {
-        int lastMax = 0;
-        if(root == null)
-        {   
-            System.out.println("Tree is emtry");
-            return 0;
-        }
-        else{
-          
-            int leftMax, rightMax;
+        // if(root == null)
+        // {   
+        //     System.out.println("Tree is emtry");
+        //     return 0;
+        // }
+        // else{
+            int Max = root.getDatum();
             if(root.getLeft() != null)
             {   
-                leftMax = max(root.getLeft());
-                System.out.println(leftMax);
-                lastMax = Math.max(lastMax,leftMax);
-                
+                Max = Math.max(Max, max(root.getLeft()));
+                // leftMax = max(root.getLeft());
+                // System.out.println(leftMax);
+                // lastMax = Math.max(lastMax,leftMax);
             }
-            else if(root.getRight() != null)
-            {   
-                rightMax = max(root.getRight());
-                lastMax = Math.max(lastMax,rightMax);
-                // System.out.print(lastMax);
-                
+            if(root.getRight() != null)
+            {  
+                Max = Math.max(Max, max(root.getRight()));
             }
-
-
-        }
-       
-        return lastMax;
+            return Max;
+        // }
+        
     }
 
     // this method returns the smallest integer in this BSTInt
     public int min() {
         // fill me in
-        return 0;
+        return min(root);
+    }
+
+    private int min(TreeCell<Integer> root)
+    {
+        // if(root == null)
+        // {   
+        //     System.out.println("Tree is emtry");
+        //     return 0;
+        // }
+        // else{
+            int Min = root.getDatum();
+            if(root.getLeft() != null)
+            {   
+                Min = Math.min(Min, min(root.getLeft()));
+                // leftMax = max(root.getLeft());
+                // System.out.println(leftMax);
+                // lastMax = Math.max(lastMax,leftMax);
+            }
+            if(root.getRight() != null)
+            {  
+                Min = Math.min(Min, min(root.getRight()));
+            }
+            return Min;
+        // }
+        
     }
     
     // this method returns the number of integers in this BSTInt
     public int size() {
         // fill me in
-        return 0;
+        return size(root);
     }    
+    private static int size(TreeCell<Integer> root) {
+        // fill me in
+        if(root == null)
+        {
+            return 0;
+        }
+        return 1+size(root.getLeft())+size(root.getRight());
+    }
+    
+    // this method removes the integer x from this BSTInt if this BSTInt contains x
+    private static TreeCell<Integer> delete(TreeCell<Integer> node, Integer x) {
+        if (node == null)
+        {
+            return node;
+        }
+        if (x < node.getDatum())
+            node.setLeft(delete(node.getLeft(), x));
+        else if (x > node.getDatum())
+            node.setRight(delete(node.getRight(), x));
+        else {
+            if (node.getLeft() == null)
+                return node.getRight();
+            else if (node.getRight() == null)
+                return node.getLeft();
+
+            node.setDatum(min(node.getRight()));
+            node.setRight(delete(node.getRight(), node.getDatum()));
+        }
+  
+        return node;
+    }
+    // this method removes the largest integer from this BSTInt
+    public void deleteMax() {
+    // fill me in
+    }
+    // this method removes the smallest integer from this BSTInt
+    public void deleteMin() {
+    // fill me in
+    }
+    // this method returns an ArrayList<Integer> containing all the integers in this BSTInt arranged in pre-order fashion
+    public ArrayList<Integer> preorder() {
+    // fill me in
+    return null;
+    }
+    // this method returns an ArrayList<Integer> containing all the integers in this BSTInt arranged in post-order fashion
+    public ArrayList<Integer> postorder() {
+    // fill me in
+    return null;
+    
+ } 
 }
