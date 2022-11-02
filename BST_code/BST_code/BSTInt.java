@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class BSTInt {
     private TreeCell<Integer> root;
-
+    public static ArrayList<Integer> postOrderArr = new ArrayList<Integer>();
+    public static ArrayList<Integer> preOrderArr = new ArrayList<Integer>();
     public BSTInt() {
         root = null;
     }
@@ -57,7 +58,7 @@ public class BSTInt {
         // if(root.getLeft() == null && root.getRight() == null)
         if(root == null)
         {
-            System.out.println("Do not contains anything");
+            // System.out.println("Do not contains anything");
             return false; 
         }
         else if(root.getDatum() == x)
@@ -128,7 +129,7 @@ public class BSTInt {
         return min(root);
     }
 
-    private int min(TreeCell<Integer> root)
+    private static int min(TreeCell<Integer> root)
     {
         // if(root == null)
         // {   
@@ -168,44 +169,88 @@ public class BSTInt {
     }
     
     // this method removes the integer x from this BSTInt if this BSTInt contains x
-    private static TreeCell<Integer> delete(TreeCell<Integer> node, Integer x) {
-        if (node == null)
+    public TreeCell<Integer> delete(Integer x)
+    {
+        return delete(root,x);
+    }
+    private static TreeCell<Integer> delete(TreeCell<Integer> root, Integer x) {
+        if (root == null)
         {
-            return node;
+            return root;
         }
-        if (x < node.getDatum())
-            node.setLeft(delete(node.getLeft(), x));
-        else if (x > node.getDatum())
-            node.setRight(delete(node.getRight(), x));
+        if (x < root.getDatum())
+        {
+            root.setLeft(delete(root.getLeft(), x));
+        }
+        else if (x > root.getDatum())
+        {
+            root.setRight(delete(root.getRight(), x));
+        }
         else {
-            if (node.getLeft() == null)
-                return node.getRight();
-            else if (node.getRight() == null)
-                return node.getLeft();
+            if (root.getLeft() == null)
+            {
+                return root.getRight();
+            }
+            else if (root.getRight() == null)
+            {
+                return root.getLeft();
+            }
 
-            node.setDatum(min(node.getRight()));
-            node.setRight(delete(node.getRight(), node.getDatum()));
+            root.setDatum(min(root.getRight()));
+            root.setRight(delete(root.getRight(), root.getDatum()));
         }
   
-        return node;
+        return root;
     }
     // this method removes the largest integer from this BSTInt
     public void deleteMax() {
-    // fill me in
+        int maxNode = max();
+        // System.out.println(maxNode);
+        delete(root,maxNode);
     }
     // this method removes the smallest integer from this BSTInt
     public void deleteMin() {
     // fill me in
+        int minNode = min();
+        delete(root,minNode);
     }
     // this method returns an ArrayList<Integer> containing all the integers in this BSTInt arranged in pre-order fashion
     public ArrayList<Integer> preorder() {
-    // fill me in
-    return null;
+        // fill me in
+        return preorder(root);
+    }
+
+    private static ArrayList<Integer> preorder(TreeCell<Integer> root) {
+        
+        if(root == null)
+        {
+            return null;
+        }
+        // System.out.print(" "+root.getDatum());
+        preOrderArr.add(root.getDatum());
+        preorder(root.getLeft());
+        preorder(root.getRight());
+
+        return preOrderArr;
     }
     // this method returns an ArrayList<Integer> containing all the integers in this BSTInt arranged in post-order fashion
     public ArrayList<Integer> postorder() {
     // fill me in
-    return null;
-    
- } 
+        return postorder(root);
+    }
+ 
+    private static ArrayList<Integer> postorder(TreeCell<Integer> root) 
+    {
+        if(root == null)
+        {
+            return null;
+        }
+        postorder(root.getLeft());
+        postorder(root.getRight());
+        postOrderArr.add(root.getDatum());
+        
+        // System.out.print("\n "+root.getDatum());
+
+        return postOrderArr;
+    }
 }
