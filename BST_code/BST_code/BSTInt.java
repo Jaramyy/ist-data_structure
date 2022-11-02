@@ -62,7 +62,7 @@ public class BSTInt {
         }
         else if(root.getDatum() == x)
         { 
-            System.out.println("Contain");
+            // System.out.println("Contain");
             return true;
         }
         else if(root.getDatum() > x) 
@@ -79,17 +79,56 @@ public class BSTInt {
     // this method returns the height of this BSTInt (the length of the longest path from the root to a node in this BSTInt)
     public int height() {
         // fill me in
+        return height(root);
+    }
+
+    private static int height(TreeCell<Integer> root)
+    {
         if(root == null)
         {
             return 0;
         }
-        return 1 + height();
+        return 1 + Math.max( height(root.getLeft()) , height(root.getLeft()) );
+       
     }
+
 
     // this method returns the largest integer in this BSTInt
     public int max() {
         // fill me in
-        return 0;
+        //return 0;
+        return max(root);
+    }
+    private static int max(TreeCell<Integer> root)
+    {
+        int lastMax = 0;
+        if(root == null)
+        {   
+            System.out.println("Tree is emtry");
+            return 0;
+        }
+        else{
+          
+            int leftMax, rightMax;
+            if(root.getLeft() != null)
+            {   
+                leftMax = max(root.getLeft());
+                System.out.println(leftMax);
+                lastMax = Math.max(lastMax,leftMax);
+                
+            }
+            else if(root.getRight() != null)
+            {   
+                rightMax = max(root.getRight());
+                lastMax = Math.max(lastMax,rightMax);
+                // System.out.print(lastMax);
+                
+            }
+
+
+        }
+       
+        return lastMax;
     }
 
     // this method returns the smallest integer in this BSTInt

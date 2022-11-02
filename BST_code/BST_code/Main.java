@@ -17,7 +17,9 @@ class Main {
             e.printStackTrace();
         }
         st.printTree();
-        System.out.println(st.contains(15)); 
+        System.out.println(st.contains(15));
+        // System.out.println(st.height()); 
+        System.out.println(st.max()); 
         // BSTInt st2 = new BSTInt();
         // try {
         //     file = new File("input2.txt");
